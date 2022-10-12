@@ -44,7 +44,7 @@ The flags are the following:
 
 ## Contributors
 
-- Thesis writer: [Matteo Franzil](https://gitlab.fbk.eu/mfranzil) ([other profile](https://matteo.franzil.com/)) `<mfranzil@fbk.eu>`
+- Thesis writer: [Matteo Franzil](https://gitlab.fbk.eu/mfranzil) ([other profile](https://matteo.franzil.com/)) `mfranzil@fbk.eu`
 - Supervisor: [Domenico Siracusa](https://gitlab.fbk.eu/dsiracusa) `dsiracusa@fbk.eu`
 - Supervisor: [Gianni Antichi](https://gianniantichi.github.io/) `g.antichi@qmul.ac.uk`
 - Collaborator: [Simone Magnani](https://gitlab.fbk.eu/smagnani) `smagnani@fbk.eu`
