@@ -1,0 +1,43 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/focal64"
+  config.vm.hostname = "bcc"
+
+  config.ssh.forward_x11 = true
+
+  config.vm.network "forwarded_port", id: "ssh", host: 2222, guest: 22 
+
+  config.vm.provision "shell" do |s|
+    # Create bridge
+    bridge = %x("#{Dir.home}/repos/qwic/vm/vagrant-qwic/create-network.sh").chomp
+    puts "==> Retrieved network bridge: #{bridge}"
+    puts "Remember to start at least a container on the same network."
+    config.vm.network "public_network", ip: "192.168.50.4", bridge: bridge
+
+    # Insert public key and tmux conf
+    ssh_pub_key = File.readlines("#{Dir.home}/.ssh/authorized_keys").grep(/Franzil/).first.strip
+    tmux_conf = File.readlines("#{Dir.home}/.tmux.conf")
+
+    s.inline = <<-SHELL
+      echo "#{ssh_pub_key}" >> /home/vagrant/.ssh/authorized_keys
+      echo "#{ssh_pub_key}" >> /root/.ssh/authorized_keys
+      echo "#{tmux_conf}" >> /home/vagrant/.tmux.conf
+      echo "#{bridge}" > /home/vagrant/network-bridge
+    SHELL
+  end
+
+  config.vm.synced_folder "/home/ubuntu/repos/qwic", "/home/vagrant/qwic"
+
+  config.vm.provision :shell, privileged: true, :path => "setup-root.sh"  
+  config.vm.provision :shell, privileged: false, :path => "setup-user.sh"  
+
+  config.vm.hostname = "qwic"
+
+  config.dns.tld = "fbk-rising"
+  config.dns.patterns = [/^(\w+\.)qwic.fbk-rising$/, /^qwic.fbk-rising$/]
+
+  config.vm.provider "virtualbox" do |vb|
+    # vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
+    vb.memory = 16384
+    vb.cpus = 12
+  end
+end

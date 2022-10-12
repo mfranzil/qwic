@@ -1,0 +1,44 @@
+
+MAX_STREAM_SIZE = 1 << 62
+LAST_FRAME_PADDING = 0b00000001
+
+SEAL_BYTES = 16
+
+ETH_HLEN = 14  # ethernet header length
+UDP_HLEN = 8
+
+EGRESS_MAGIC = 0xfaceb00d  # magic used in eBPF to identify egress
+INGRESS_MAGIC = 0xfaceb00c  # magic used in eBPF to identify ingress
+
+BPF_FILE = "filter.c"
+
+THRESHOLD_STREAM_DELTA = 4000
+THRESHOLD_STREAM_LEN = 30
+THRESHOLD_PACKET_LEN = 15
+THRESHOLD_MAX_STREAM_ID = 10000
+THRESHOLD_GARBAGE_TIME = 4
+THRESHOLD_STREAM_TIME = 120
+THRESHOLD_ACK_HOLE = 4
+THRESHOLD_GARBAGE_AMOUNT = 10
+
+KILLSWITCH_ENABLED = False
+
+DISCARD_CID_WINDOW = 30
+
+MAX_ACK_DELAY = 25  # ???? TODO
+MIN_RTT = 10  # ???? TODO
+
+ACK_DELAY_EXPONENT = 3  # ack delay is 2 ** ack_delay_exponent * rtt
+MAX_ACK_DELAY = 25  # max ack delay in ms
+
+# Smoothing factors
+
+SMOOTHED_RTT_FRAC = \
+    RTTVAR_FRAC = \
+    1/8
+
+SMOOTHED_STREAM_LEN_FRAC = \
+    AVERAGE_PAYLOAD_LEN_FRAC = \
+    1/10
+
+GARBAGE_FRAC = 3/8
